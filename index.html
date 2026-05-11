@@ -1,444 +1,741 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Suraj Rathod — Cloud & Data Portfolio</title>
-  <meta name="description" content="Suraj Rathod — Cloud Computing & Data Analytics student. Projects: Sales prediction, AWS S3 portfolio, Excel & MongoDB analysis." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suraj Rathod — Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09090b;
+    --bg2: #111113;
+    --bg3: #18181b;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --accent: #e4ff47;
+    --accent2: #b8ff00;
+    --text: #f4f4f5;
+    --muted: #71717a;
+    --muted2: #a1a1aa;
+    --card: #141416;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 
-  <!-- Google Font (optional) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(9,9,11,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted2);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
 
-  <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7c5cff; --text:#e6eef8;
-      --glass: rgba(255,255,255,0.04);
-    }
-    /* Light theme overrides set by JS */
-    [data-theme="light"]{
-      --bg: #f6f9fb; --card:#ffffff; --muted:#5b6b78; --accent:#2b6ef6; --text:#0b1220; --glass: rgba(11,18,32,0.04);
-    }
-    /* Custom accent via inline style on body (JS will set --accent) */
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    position: relative; z-index: 1;
+    margin-bottom: 2rem;
+  }
+  .hero-name .highlight {
+    color: var(--accent);
+    display: block;
+  }
+  .hero-bottom {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    position: relative; z-index: 1;
+    flex-wrap: wrap; gap: 2rem;
+  }
+  .hero-desc {
+    max-width: 480px;
+    font-size: 16px;
+    color: var(--muted2);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .hero-ctas { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: var(--accent);
+    color: #09090b;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border: 1px solid var(--border2);
+    color: var(--muted2);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-    *{box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-    html,body{height:100%; margin:0; background:linear-gradient(180deg,var(--bg), #081026); color:var(--text); -webkit-font-smoothing:antialiased;}
-    .container{max-width:1100px; margin:32px auto; padding:24px;}
-    header.top{display:flex; gap:20px; align-items:center; justify-content:space-between;}
-    .brand{display:flex; gap:16px; align-items:center;}
-    .avatar{
-      width:92px; height:92px; border-radius:16px; overflow:hidden; flex-shrink:0; border:2px solid rgba(255,255,255,0.06);
-      background:linear-gradient(135deg,var(--accent), transparent);
-    }
-    .avatar img{width:100%; height:100%; object-fit:cover; display:block;}
-    h1{font-size:1.4rem; margin:0;}
-    .tag{color:var(--muted); font-size:0.9rem;}
-    nav.buttons{display:flex; gap:8px; align-items:center;}
-    .btn{
-      background:var(--glass); color:var(--text); padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.03);
-      text-decoration:none; font-weight:600; font-size:0.92rem;
-    }
-    .btn.ghost{background:transparent; border:1px dashed rgba(255,255,255,0.04);}
-    main.grid{display:grid; grid-template-columns: 1fr 360px; gap:22px; margin-top:24px;}
-    @media (max-width:980px){ main.grid{grid-template-columns:1fr;} .avatar{width:80px;height:80px;} }
+  /* SECTIONS */
+  section { padding: 6rem 4rem; border-bottom: 1px solid var(--border); }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: var(--border2);
+  }
 
-    /* HERO CARD */
-    .hero{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:20px; border-radius:14px; box-shadow: 0 6px 18px rgba(2,6,23,0.6);
-    }
-    .hero .intro{display:flex; gap:18px; align-items:center;}
-    .hero h2{margin:0 0 6px 0; font-size:1.6rem;}
-    .headline{color:var(--muted); margin:0 0 10px 0;}
-    .cta-row{display:flex; gap:12px; margin-top:14px;}
-    .download{background:var(--accent); color:white;}
-    .socials{display:flex; gap:8px; margin-left:6px;}
-    .pill{background:rgba(255,255,255,0.03); padding:6px 10px; border-radius:999px; font-weight:600; font-size:0.85rem;}
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .about-body {
+    color: var(--muted2);
+    font-size: 15px;
+    line-height: 1.85;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .stat-item { border-left: 2px solid var(--accent); padding-left: 1rem; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    color: var(--accent); line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 0.25rem; }
 
-    /* About */
-    .about{margin-top:16px; line-height:1.55; color:var(--muted);}
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .skill-group {
+    background: var(--card);
+    padding: 2rem 1.75rem;
+  }
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    font-size: 13px;
+    color: var(--text);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 4px 10px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* Skills */
-    .skills-card{background:var(--card); padding:16px; border-radius:12px;}
-    .skill{margin-bottom:12px;}
-    .skill .meta{display:flex; justify-content:space-between; align-items:center; font-size:0.9rem; color:var(--muted); margin-bottom:6px;}
-    .bar{
-      height:12px; background:rgba(255,255,255,0.06); border-radius:8px; overflow:hidden;
-    }
-    .bar > i{display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--accent), rgba(124,92,255,0.5)); border-radius:8px; transition:width 1.3s ease-in-out;}
+  /* PROJECTS */
+  .projects-list { display: flex; flex-direction: column; gap: 1px; }
+  .project-row {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .project-row:last-child { border-bottom: none; }
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    padding-top: 4px;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    transition: color 0.2s;
+  }
+  .project-row:hover .project-title { color: var(--accent); }
+  .project-desc {
+    font-size: 14px;
+    color: var(--muted2);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 640px;
+    margin-bottom: 1rem;
+  }
+  .project-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 3px 8px;
+  }
+  .project-arrow {
+    font-size: 20px;
+    color: var(--muted);
+    transition: color 0.2s, transform 0.2s;
+    padding-top: 4px;
+  }
+  .project-row:hover .project-arrow { color: var(--accent); transform: translate(3px, -3px); }
 
-    /* Case Studies */
-    .case-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    @media (max-width:680px){ .case-grid{grid-template-columns:1fr;} }
-    .case{background:var(--card); padding:14px; border-radius:10px; cursor:pointer; transition:transform 0.15s; border:1px solid rgba(255,255,255,0.02);}
-    .case:hover{transform:translateY(-6px); box-shadow:0 8px 30px rgba(2,6,23,0.6);}
-    .case h4{margin:6px 0 8px 0;}
-    .case p{margin:0; color:var(--muted); font-size:0.92rem;}
+  /* EXPERIENCE */
+  .exp-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-row:last-child { border-bottom: none; }
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    padding-top: 4px;
+  }
+  .exp-company {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .exp-role {
+    font-size: 13px;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 1rem;
+  }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 14px;
+    color: var(--muted2);
+    font-weight: 300;
+    line-height: 1.7;
+    padding: 0.3rem 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--muted);
+    font-size: 12px;
+  }
 
-    /* Timeline */
-    .timeline{position:relative; padding-left:16px; margin-top:12px;}
-    .timeline:before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--accent), transparent);}
-    .tl-item{position:relative; padding:12px 0 12px 20px;}
-    .tl-dot{position:absolute; left:-6px; top:16px; width:12px; height:12px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px rgba(124,92,255,0.06);}
+  /* CERTS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .cert-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: var(--border2); }
+  .cert-icon {
+    font-size: 20px;
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+  .cert-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  .cert-issuer {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
 
-    /* Footer / contact */
-    footer.card{margin-top:18px; padding:14px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); display:flex; justify-content:space-between; align-items:center; gap:12px;}
-    .contact-actions{display:flex; gap:8px; align-items:center;}
-    .copy{cursor:pointer; font-weight:700; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.03); background:transparent;}
+  /* CONTACT */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .contact-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .contact-sub {
+    font-size: 15px; color: var(--muted2); font-weight: 300; line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 14px;
+    color: var(--muted2);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-link span { font-size: 16px; }
 
-    /* Modal */
-    .modal{
-      position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(2,6,23,0.6); z-index:1000;
-    }
-    .modal.open{display:flex;}
-    .modal .panel{width:min(900px,95%); max-height:90vh; overflow:auto; background:var(--card); padding:20px; border-radius:12px; box-shadow:0 12px 40px rgba(2,6,23,0.7);}
-    .close{background:transparent; border:0; color:var(--muted); font-weight:700; cursor:pointer; font-size:1rem;}
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
 
-    /* tiny helpers */
-    .muted{color:var(--muted);}
-    .kbd{background:rgba(255,255,255,0.03); padding:4px 8px; border-radius:6px; font-weight:700; font-size:0.85rem;}
-  </style>
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tag { animation: fadeUp 0.6s ease both; }
+  .hero-name { animation: fadeUp 0.7s 0.1s ease both; }
+  .hero-bottom { animation: fadeUp 0.7s 0.2s ease both; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-row { grid-template-columns: 1fr; gap: 1rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    .project-row { grid-template-columns: 2rem 1fr; }
+    .project-arrow { display: none; }
+  }
+</style>
 </head>
 <body>
-  <div class="container" id="page">
-    <!-- Top -->
-    <header class="top" role="banner">
-      <div class="brand">
-        <div class="avatar" aria-hidden="true">
-          <!-- Replace profile.jpg in your bucket -->
-         <img src="https://drive.google.com/file/d/1eQ2fSAcNU3LMwCj0GN4laPsH8qLK-bpc/view?usp=drivesdk" alt="Suraj Rathod — Profile photo" onerror="this.src='https://via.placeholder.com/400?text=Suraj'">
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SR.DEV</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-tag">Data Analyst · Bengaluru, India</div>
+  <h1 class="hero-name">
+    Suraj<br>
+    <span class="highlight">Rathod.</span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      Turning raw data into decisions. I build dashboards, models, and insights across retail, telecom, e-commerce, and content analytics — end to end.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Work ↓</a>
+      <a href="#contact" class="btn-ghost">Let's Talk</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div>
+      <h2 class="about-title">Data-driven by default. Story-first in practice.</h2>
+      <p class="about-body">
+        I'm a CSE graduate and Data Analyst with a CGPA of 8.34 from Acharya Institute of Technology. My stack spans Python, SQL, Power BI, and Excel — but what I actually do is translate messy data into clarity that helps people make better calls.
+      </p>
+      <p class="about-body">
+        I've built ML-powered apps, cohort dashboards, churn models, and customer segmentation systems — across 500K+ record datasets — deployed and presented to real stakeholders.
+      </p>
+    </div>
+    <div>
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">End-to-end projects shipped</div>
         </div>
-        <div>
-          <h1>Suraj Rathod</h1>
-          <div class="tag">Cloud & Data Enthusiast • Aspiring Cloud Administrator • Placement-ready (Sept 2025)</div>
+        <div class="stat-item">
+          <div class="stat-num">500K+</div>
+          <div class="stat-label">Records analyzed across projects</div>
         </div>
-      </div>
-
-      <div class="buttons" aria-hidden="false">
-        <div class="pill">Bengaluru, India</div>
-        <a class="btn" href="#contact">Contact</a>
-        <a class="btn download" href="https://drive.google.com/file/d/1LblZCoY0tXhPtaSo3v7jTqBQBt9XYQm-/view?usp=drivesdk" target="_blank">Download CV</a>        <div style="width:10px"></div>
-        <div class="pill" title="Theme">Theme</div>
-        <select id="themeSelector" class="btn ghost" onchange="changeTheme(this.value)">
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-          <option value="custom">Custom</option>
-        </select>
-      </div>
-    </header>
-
-    <main class="grid" role="main">
-      <!-- Left column -->
-      <section>
-        <div class="hero">
-          <div class="intro">
-            <div style="flex:1;">
-              <h2>Hello — I'm Suraj</h2>
-              <div class="headline">Final-year CSE student focused on <strong>AWS Cloud Administration</strong> & <strong>Data Analytics</strong>.</div>
-              <p class="about">
-                I'm building production-ready cloud and analytics solutions — completed AWS Cloud Practitioner, strong Excel & MongoDB skills,
-                and shipped a major ML project: <em>Prediction of Future Sales</em> deployed with Streamlit. I'm placement-ready for roles in Cloud / DevOps / Data Analytics.
-              </p>
-
-              <div class="cta-row">
-               <a class="btn download" href="https://drive.google.com/file/d/1LblZCoY0tXhPtaSo3v7jTqBQBt9XYQm-/view?usp=drivesdk" target="_blank">Download CV</a>
-                <a class="btn ghost" href="#case-studies">Case Studies</a>
-                <div class="socials">
-                  <a class="btn" href="https://linkedin.com/in/suraj-rathod-605353343" target="_blank" rel="noopener">LinkedIn</a>
-                  <a class="btn" href="https://github.com/Suraj-monarch" target="_blank" rel="noopener">GitHub</a>
-                </div>
-              </div>
-            </div>
-
-            <div style="width:140px; text-align:center;">
-              <div class="pill">AWS • Excel • MongoDB</div>
-              <div style="height:10px"></div>
-              <div class="pill">Placement: Sept 2025</div>
-            </div>
-          </div>
-
-          <!-- Achievements timeline (creative) -->
-          <div style="margin-top:18px;">
-            <h3 style="margin:4px 0 8px 0;">Achievements — not the usual list</h3>
-            <div class="timeline">
-              <div class="tl-item">
-                <span class="tl-dot"></span>
-                <strong>Hosted portfolio on AWS S3</strong>
-                <div class="muted">Practical cloud deployment & static hosting.</div>
-              </div>
-              <div class="tl-item">
-                <span class="tl-dot"></span>
-                <strong>Major project delivered</strong>
-                <div class="muted">Prediction of Future Sales — Streamlit app with forecasting dashboards.</div>
-              </div>
-              <div class="tl-item">
-                <span class="tl-dot"></span>
-                <strong>In-progress: Excel & MongoDB analytics</strong>
-                <div class="muted">Building real-world data analysis projects.</div>
-              </div>
-            </div>
-          </div>
+        <div class="stat-item">
+          <div class="stat-num">8.34</div>
+          <div class="stat-label">CGPA — Acharya Institute of Technology</div>
         </div>
-
-        <!-- Case Studies -->
-        <div id="case-studies" style="margin-top:16px;">
-          <h3 style="margin-bottom:10px;">Case Studies</h3>
-          <div class="case-grid">
-            <div class="case" onclick="openCase('case1')">
-              <h4>Prediction of Future Sales</h4>
-              <p class="muted">ML forecasting model, regression pipelines, Streamlit UI, deployed with monitoring-ready visuals.</p>
-            </div>
-
-            <div class="case" onclick="openCase('case2')">
-              <h4>Static Portfolio — AWS S3</h4>
-              <p class="muted">Design & host a performance-first portfolio on S3 with theme toggle and downloadable resume.</p>
-            </div>
-
-            <div class="case" onclick="openCase('case3')">
-              <h4>Excel & MongoDB Analysis (WIP)</h4>
-              <p class="muted">Data cleaning, aggregation, dashboards — producing actionable insights from datasets.</p>
-            </div>
-
-            <div class="case" onclick="openCase('case4')">
-              <h4>Streamlit Dashboards</h4>
-              <p class="muted">Interactive dashboards to visualize predictions and KPIs for inventory planning.</p>
-            </div>
-          </div>
+        <div class="stat-item">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Domains: retail, telecom, e-com, content</div>
         </div>
-
-        <!-- Experience & Education -->
-        <div style="margin-top:16px;">
-          <h3>Experience & Education</h3>
-          <div class="timeline" aria-hidden="false">
-            <div class="tl-item">
-              <span class="tl-dot"></span>
-              <strong>Final-year B.E., CSE — VTU</strong>
-              <div class="muted">2022–2026 (Currently 4th year)</div>
-            </div>
-
-            <div class="tl-item">
-              <span class="tl-dot"></span>
-              <strong>Cloud Practitioner — Learning in public</strong>
-              <div class="muted">AWS Cloud Practitioner Essentials (Completed) — revising and building projects.</div>
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- Right column -->
-      <aside>
-        <div class="skills-card">
-          <h3 style="margin-top:0;">Skills & Tools</h3>
-
-          <!-- Skill bars. Numbers approximate from resume -->
-          <div class="skill">
-            <div class="meta"><span>AWS (S3, EC2, IAM, Lambda)</div>
-            
-          </div>
-
-          <div class="skill">
-            <div class="meta"><span>Excel </div>
-            
-          </div>
-
-          <div class="skill">
-            <div class="meta"><span>MongoDB</span></div>
-           
-          </div>
-
-          <div class="skill">
-            <div class="meta"><span>Python</div>
-            
-          </div>
-
-          <div class="skill">
-            <div class="meta"><span>SQL </span></div>
-           
-          </div>
-
-          <hr style="border:none; height:1px; background:rgba(255,255,255,0.03); margin:12px 0;">
-
-          <h4 style="margin:8px 0 6px 0;">Quick Links</h4>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a class="btn" href="https://www.linkedin.com/in/suraj-rathod-605353343" target="_blank" rel="noopener">LinkedIn</a>
-<a class="btn" href="https://github.com/Suraj-monarch" target="_blank" rel="noopener">GitHub</a>
-<a class="btn ghost" href="https://drive.google.com/file/d/1LblZCoY0tXhPtaSo3v7jTqBQBt9XYQm-/view?usp=drivesdk" target="_blank">Resume (PDF)</a>
-          </div>
-        </div>
-
-        <!-- Contact -->
-        <footer class="card" id="contact" style="margin-top:12px;">
-          <div>
-            <div style="font-weight:700">Let's talk — Suraj</div>
-            <div class="muted" style="font-size:0.95rem; margin-top:6px;">surajrathod4803@gmail.com • +91 76763 56580</div>
-          </div>
-          <div class="contact-actions">
-            <a class="btn" href="mailto:surajrathod4803@gmail.com?subject=Hi%20Suraj%20—%20Portfolio%20Contact" title="Mail Suraj">Email</a>
-            <button class="btn copy" onclick="copyEmail()">Copy Email</button>
-          </div>
-        </footer>
-
-        <!-- Mini personality note -->
-        <div style="margin-top:12px; background:var(--card); padding:12px; border-radius:10px;">
-          <div style="font-weight:700">Personality</div>
-          <div class="muted" style="margin-top:6px; font-size:0.95rem;">
-            Friendly, execution-focused, and ready to learn. Prefers practical projects, quick shipping, and clean cloud architecture.
-          </div>
-        </div>
-      </aside>
-    </main>
-
-    <!-- Footer small -->
-    <div style="max-width:1100px; margin:18px auto 60px; padding:0 24px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; color:var(--muted); font-size:0.9rem;">
-        <div>Made by Suraj • <span class="muted">Cloud & Data Portfolio</span></div>
-        <div>Languages: English • Kannada • Hindi</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Modal templates for case studies -->
-  <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="panel" role="document">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h3 id="m-title">Case Study</h3>
-        <button class="close" onclick="closeModal()">✕</button>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills</div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">SQL</span>
       </div>
-      <div id="m-body" style="margin-top:12px; color:var(--muted); line-height:1.6;">
-        <!-- content injected by JS -->
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Libraries</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">Matplotlib</span>
+        <span class="skill-tag">Seaborn</span>
+        <span class="skill-tag">Scikit-learn</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Tools & BI</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Excel</span>
+        <span class="skill-tag">DAX</span>
+        <span class="skill-tag">Pivot Tables</span>
+        <span class="skill-tag">VLOOKUP</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Tech & Cloud</div>
+      <div class="skill-tags">
+        <span class="skill-tag">AWS S3</span>
+        <span class="skill-tag">EC2</span>
+        <span class="skill-tag">Streamlit</span>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Concepts</div>
+      <div class="skill-tags">
+        <span class="skill-tag">EDA</span>
+        <span class="skill-tag">Data Cleaning</span>
+        <span class="skill-tag">Visualization</span>
+        <span class="skill-tag">Statistical Analysis</span>
+        <span class="skill-tag">Data Storytelling</span>
+        <span class="skill-tag">ML Regression</span>
+        <span class="skill-tag">Clustering</span>
+        <span class="skill-tag">Cohort Analysis</span>
       </div>
     </div>
   </div>
+</section>
 
-  <script>
-    /*****************
-     * Theme handling
-     *****************/
-    const root = document.documentElement;
-    const body = document.body;
-    const themeSelector = document.getElementById('themeSelector');
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <div class="projects-list">
 
-    function applyStoredTheme(){
-      const t = localStorage.getItem('portfolio_theme') || 'dark';
-      if(t === 'custom'){
-        const accent = localStorage.getItem('portfolio_accent') || '#7c5cff';
-        root.style.setProperty('--accent', accent);
-        themeSelector.value = 'custom';
-        body.setAttribute('data-theme', 'dark'); // base on dark but custom accent
-      } else {
-        body.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
-        themeSelector.value = t === 'light' ? 'light' : 'dark';
-      }
-    }
-    applyStoredTheme();
+    <a class="project-row" href="https://github.com/Suraj-monarch/future-sales-project-new" target="_blank">
+      <div class="project-num">01</div>
+      <div>
+        <div class="project-title">Prediction of Future Sales using ML</div>
+        <p class="project-desc">
+          Trained a regression model on 300K+ synthetic cloud sales records using product, marketing, and cost signals. Deployed a 4-page interactive Streamlit app with live prediction, historical comparison charts, and feedback logging via CSV.
+        </p>
+        <div class="project-chips">
+          <span class="chip">Python</span>
+          <span class="chip">Scikit-learn</span>
+          <span class="chip">Streamlit</span>
+          <span class="chip">ML Regression</span>
+          <span class="chip">300K+ records</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
 
-    function changeTheme(value){
-      if(value === 'custom'){
-        const c = prompt('Enter a hex color for accent (e.g. #ff6b6b):', '#7c5cff');
-        if(c){ localStorage.setItem('portfolio_theme','custom'); localStorage.setItem('portfolio_accent', c); applyStoredTheme(); }
-      } else {
-        localStorage.setItem('portfolio_theme', value);
-        localStorage.removeItem('portfolio_accent');
-        applyStoredTheme();
-      }
-    }
+    <a class="project-row" href="https://github.com/Suraj-monarch/Smart-Retail-Insights-Engine-SRIE" target="_blank">
+      <div class="project-num">02</div>
+      <div>
+        <div class="project-title">Smart Retail Insights Engine (SRIE)</div>
+        <p class="project-desc">
+          Built an interactive Power BI dashboard analyzing ₹2M+ in sales, 100+ orders, and 4 product categories. 6+ dynamic visualizations with slicers for city, month, and status. SQL + DAX to track top customers and monthly revenue across 4 cities.
+        </p>
+        <div class="project-chips">
+          <span class="chip">SQL</span>
+          <span class="chip">Power BI</span>
+          <span class="chip">DAX</span>
+          <span class="chip">₹2M+ Sales</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
 
-    /*****************
-     * Skill bars animation
-     *****************/
-    function animateSkillBars(){
-      document.querySelectorAll('.bar i').forEach((el, idx) => {
-        const w = el.getAttribute('data-w') || '60';
-        setTimeout(()=> { el.style.width = w + '%'; }, 150 * idx);
-      });
-    }
-    window.addEventListener('load', () => {
-      animateSkillBars();
-    });
+    <a class="project-row" href="https://github.com/Suraj-monarch/YouTube-Analytics-Dashboard" target="_blank">
+      <div class="project-num">03</div>
+      <div>
+        <div class="project-title">YouTube Analytics Dashboard</div>
+        <p class="project-desc">
+          Extracted and processed stats for 30+ videos via YouTube Data API v3, tracking 19K+ total views. Power BI dashboard identified 9–11 AM as peak upload window through temporal analysis; top video reached 1,600+ views with likes-vs-views KPI tracking.
+        </p>
+        <div class="project-chips">
+          <span class="chip">Python</span>
+          <span class="chip">Pandas</span>
+          <span class="chip">Power BI</span>
+          <span class="chip">YouTube API</span>
+          <span class="chip">19K+ views</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
 
-    /*****************
-     * Case study modal
-     *****************/
-    const caseData = {
-      case1: {
-        title: 'Prediction of Future Sales — Case Study',
-        body: `
-          <p><strong>Overview:</strong> Built a regression-based forecasting pipeline to predict product sales using historical data. Implemented feature engineering (time features, category encodings) and validation to avoid leakage.</p>
-          <p><strong>Tech:</strong> Python (sklearn), Streamlit, CSV pipelines, AWS (deployed dashboard). </p>
-          <p><strong>Outcome:</strong> Interactive Streamlit dashboard showing predicted sales, confidence intervals, and inventory suggestions.</p>
-        `
-      },
-      case2: {
-        title: 'Static Portfolio — Case Study',
-        body: `
-          <p><strong>Overview:</strong> Designed and deployed a performance-first static portfolio on AWS S3 with theme toggle, downloadable resume, and responsive layout.</p>
-          <p><strong>Tech:</strong> HTML/CSS/JS, AWS S3 static website hosting.</p>
-          <p><strong>Notes:</strong> This portfolio is optimized for low bandwidth and quick load using compressed images and no external JS libs.</p>
-        `
-      },
-      case3: {
-        title: 'Excel & MongoDB — Case Study (WIP)',
-        body: `
-          <p><strong>Overview:</strong> Cleaning real-world datasets in Excel, aggregating results into MongoDB for flexible query patterns and dashboard generation.</p>
-          <p><strong>Tech:</strong> Excel (advanced), MongoDB CRUD & aggregation, data visualization.</p>
-        `
-      },
-      case4: {
-        title: 'Streamlit Dashboard — Case Study',
-        body: `
-          <p><strong>Overview:</strong> Deployed dashboards for monitoring model performance and KPIs with exportable reports for stakeholders.</p>
-          <p><strong>Tech:</strong> Streamlit, pandas, matplotlib/plotly (optional).</p>
-        `
-      }
-    };
+    <a class="project-row" href="https://github.com/Suraj-monarch/telecom-churn-analysis" target="_blank">
+      <div class="project-num">04</div>
+      <div>
+        <div class="project-title">Telecom Customer Churn Analysis</div>
+        <p class="project-desc">
+          Analyzed 6,400+ customer records across 32 attributes using MySQL and Power BI — identifying contract type, internet service, and tenure as key churn drivers. 3-page dashboard with 10+ DAX measures: 26.99% churn rate, $126K+ monthly revenue at risk, 2K+ high-risk customers.
+        </p>
+        <div class="project-chips">
+          <span class="chip">MySQL</span>
+          <span class="chip">Power BI</span>
+          <span class="chip">DAX</span>
+          <span class="chip">6.4K records</span>
+          <span class="chip">Churn Analysis</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
 
-    function openCase(id){
-      const modal = document.getElementById('modal');
-      const title = document.getElementById('m-title');
-      const body = document.getElementById('m-body');
-      const data = caseData[id];
-      if(!data) return;
-      title.innerText = data.title;
-      body.innerHTML = data.body + '<p style="margin-top:8px;"><a class="btn" href="https://drive.google.com/file/d/1LblZCoY0tXhPtaSo3v7jTqBQBt9XYQm-/view?usp=drivesdk" target="_blank">Download Resume</a></p>';
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
-    }
-    function closeModal(){
-      const modal = document.getElementById('modal');
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden','true');
-    }
-    // close on background click
-    document.getElementById('modal').addEventListener('click', (e)=> {
-      if(e.target.id === 'modal') closeModal();
-    });
+    <a class="project-row" href="https://github.com/Suraj-monarch/E-Commerce-Cohort-Analytics" target="_blank">
+      <div class="project-num">05</div>
+      <div>
+        <div class="project-title">E-Commerce Sales & Cohort Analysis</div>
+        <p class="project-desc">
+          Processed 500K+ UK retail transactions with Pandas. 3-page Power BI dashboard with retention heatmap, treemap, and KPI cards across 4,000+ products and 38 countries. Cohort analysis revealed sharp Month 1 drop-off; UK = 82% revenue, Q4 = peak period.
+        </p>
+        <div class="project-chips">
+          <span class="chip">Python</span>
+          <span class="chip">Pandas</span>
+          <span class="chip">Power BI</span>
+          <span class="chip">Cohort Analysis</span>
+          <span class="chip">500K+ records</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
 
-    /*****************
-     * Copy email
-     *****************/
-    function copyEmail(){
-      navigator.clipboard && navigator.clipboard.writeText('surajrathod4803@gmail.com')
-        .then(()=> alert('Email copied to clipboard ✅'))
-        .catch(()=> prompt('Copy this email:', 'surajrathod4803@gmail.com'));
-    }
+    <a class="project-row" href="https://github.com/Suraj-monarch/Credit_Card_Clustering" target="_blank">
+      <div class="project-num">06</div>
+      <div>
+        <div class="project-title">CardIQ — Credit Card Customer Segmentation</div>
+        <p class="project-desc">
+          Clustered 8,950 credit card customers into 4 behavioral segments using K-Means with RobustScaler. Identified a 0.4% Credit Risk cluster with extreme minimum payment behavior — actionable signal for early collections. 3-page Power BI dashboard with segment-level spend and payment risk.
+        </p>
+        <div class="project-chips">
+          <span class="chip">Python</span>
+          <span class="chip">Scikit-learn</span>
+          <span class="chip">K-Means</span>
+          <span class="chip">Power BI</span>
+          <span class="chip">8.9K customers</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
 
-    /*****************
-     * Small accessibility / keyboard shortcuts
-     *****************/
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape') closeModal();
-      // Quick mail: press "m"
-      if(e.key.toLowerCase() === 'm' && (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA')) {
-        window.location.href = 'mailto:surajrathod4803@gmail.com?subject=Hello%20Suraj';
-      }
-    });
+  </div>
+</section>
 
-    // Ensure theme selection reflects stored theme on first load
-    (function syncThemeSelect(){
-      const t = localStorage.getItem('portfolio_theme') || 'dark';
-      if(t === 'custom') themeSelector.value = 'custom';
-      else themeSelector.value = t === 'light' ? 'light' : 'dark';
-    })();
-  </script>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <div>
+    <div class="exp-row">
+      <div class="exp-date">Feb 2026 — May 2026</div>
+      <div>
+        <div class="exp-company">Rooman Technologies</div>
+        <div class="exp-role">Data Analyst Intern</div>
+        <ul class="exp-bullets">
+          <li>Applied Python, SQL, and Excel to clean and preprocess real-world business datasets, supporting operational reporting workflows</li>
+          <li>Built Power BI dashboards tracking business KPIs, presented findings to stakeholders through weekly reporting cycles</li>
+          <li>Conducted EDA across multiple datasets to surface data quality issues and actionable patterns for team decision-making</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certifications">
+  <div class="section-label">Certifications</div>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon">☁</div>
+      <div class="cert-name">AWS Cloud Practitioner Essentials</div>
+      <div class="cert-issuer">Amazon Web Services</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">⬡</div>
+      <div class="cert-name">Solutions Architecture Job Simulation</div>
+      <div class="cert-issuer">Forage</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">◈</div>
+      <div class="cert-name">SQL Gold Badge</div>
+      <div class="cert-issuer">HackerRank</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <div class="contact-inner">
+    <div>
+      <h2 class="contact-title">Let's work together.</h2>
+      <p class="contact-sub">Open to Data Analyst roles, freelance dashboards, and interesting data problems. Drop a message or connect anywhere below.</p>
+      <a href="mailto:surajrathod4803@gmail.com" class="btn-primary" style="display:inline-flex">Send an Email →</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:surajrathod4803@gmail.com" class="contact-link">
+        <span>✉</span> surajrathod4803@gmail.com
+      </a>
+      <a href="tel:+917676356580" class="contact-link">
+        <span>✆</span> +91 76763 56580
+      </a>
+      <a href="https://linkedin.com/in/suraj-rathod-605353343" target="_blank" class="contact-link">
+        <span>in</span> linkedin.com/in/suraj-rathod-605353343
+      </a>
+      <a href="https://github.com/Suraj-monarch" target="_blank" class="contact-link">
+        <span>⌥</span> github.com/Suraj-monarch
+      </a>
+      <a href="https://suraj-monarch.github.io/Portfolio/" target="_blank" class="contact-link">
+        <span>◎</span> suraj-monarch.github.io/Portfolio
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Suraj Rathod. All rights reserved.</p>
+  <p>Built from scratch · Bengaluru, India</p>
+</footer>
+
 </body>
 </html>
